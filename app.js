@@ -1,11 +1,25 @@
 import express from "express";
 import expressEjsLayouts from "express-ejs-layouts";
+import morgan from "morgan";
+
 const app = express();
 const port = 3000;
 
 // gunakan ejs
 app.set("view engine", "ejs");
+
+// third-party middleware (created by npm package or third-party)
 app.use(expressEjsLayouts);
+app.use(morgan("dev"));
+
+// built-in middleware (created by express itself)
+app.use(express.static("public"));
+
+// Application level middleware (created by user)
+app.use((req, res, next) => {
+  console.log("Time: ", Date.now());
+  next();
+});
 
 app.get("/", (req, res) => {
   const mhs = [
