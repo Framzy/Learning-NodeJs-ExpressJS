@@ -19,7 +19,9 @@
   },
   "homepage": "https://github.com/Framzy/Learning-NodeJs-ExpressJS#readme",
   "dependencies": {
-    "express": "^5.1.0"
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-ejs-layouts": "^2.5.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"

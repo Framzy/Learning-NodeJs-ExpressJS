@@ -1,23 +1,54 @@
 import express from "express";
-import path from "path";
-import { __dirname } from "./utils/path.js";
-
+import expressEjsLayouts from "express-ejs-layouts";
 const app = express();
 const port = 3000;
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+// gunakan ejs
+app.set("view engine", "ejs");
+app.use(expressEjsLayouts);
 
-app.get("/home", (req, res) => {
-  res.sendFile(path.join(__dirname, "../views/index.html"));
+app.get("/", (req, res) => {
+  const mhs = [
+    {
+      nama: "farden",
+      kelas: "rq",
+    },
+    {
+      nama: "ramzy",
+      kelas: "rq",
+    },
+    {
+      nama: "muharram",
+      kelas: "rq",
+    },
+  ];
+  const vocals = {
+    layout: "layouts/main-layout",
+    title: "Home Page",
+    nama: "farden",
+    mhs,
+  };
+  res.render("index", vocals);
 });
 
 app.get("/about", (req, res) => {
-  res.sendFile(path.join(__dirname, "../views/about.html"));
+  const vocals = {
+    layout: "layouts/main-layout",
+    title: "About Page",
+  };
+  res.render("about", vocals);
+});
+
+app.get("/contact", (req, res) => {
+  const vocals = {
+    layout: "layouts/main-layout",
+    title: "Contact Page",
+  };
+  res.render("contact", vocals);
 });
 
 app.get("/product/:id", (req, res) => {
+  res.render("product");
   res.send(`Product ID : ${req.params.id} <br> 
     Category : ${req.query.category} `);
 });
